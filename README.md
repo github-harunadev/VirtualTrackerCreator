@@ -3,7 +3,7 @@
 # VirtualTrackerCreator
 VirtualTrackerCreator lets you add VirtualTracker (used in [VRCPrismStudio](https://prismstudio.haruna.dev)) to the actor's avatar. Simply right click the avatar bone (or any GameObject) that you wish to add VirtualTracker, navigate to  `PrismStudio VirtualTracker`, and select the tracker ID (or select `More` if you have custom tracker ID.). It will add VirtualTracker to the avatar!
 
-## Read me!
+## ⚠️ Read me!
 This repository do not contain FULL package of [VRCPrismStudio](https://prismstudio.haruna.dev)! VirtualTrackerCreator is the only open-sourced, and [VRCPrismStudio](https://prismstudio.haruna.dev) is a paid asset.
 
 ## Download

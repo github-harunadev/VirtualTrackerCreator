@@ -3,7 +3,7 @@
 # VirtualTrackerCreator
 VirtualTrackerCreator를 사용해서, 모션액터의 아바타에 VirtualTracker ([VRCPrismStudio](https://prismstudio.haruna.dev)에서 사용됨) 를 쉽게 추가할 수 있습니다. 추가하고자 하는 아바타 본 (또는 아무 GameObject) 를 우클릭하고, 메뉴에서 `PrismStudio VirtualTracker` 를 클릭하고, 원하는 트래커 ID가 적힌 버튼을 클릭하면 됩니다 (또는 `More` 를 클릭하시면 트래커 ID를 지정할 수 있습니다)! 우클릭했던 오브젝트에 VirtualTracker 오브젝트가 생성될 것입니다.
 
-## 읽어주세요!
+## ⚠️ 읽어주세요!
 이 레포지토리는 [VRCPrismStudio](https://prismstudio.haruna.dev)가 아닙니다! VirtualTrackerCreator만 무료 배포되며, VRCPrismStudio는 유료 에셋입니다.
 
 ## 다운로드
