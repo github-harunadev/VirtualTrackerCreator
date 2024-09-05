@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Animations;
+using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Dynamics.Contact.Components;
 
 public class VirtualTrackerCreator : EditorWindow
 {
 
-    public readonly string version = "1.0";
+    public readonly string version = "1.1";
 
     [MenuItem("GameObject/PrismStudio VirtualTracker/0")] static void c0(MenuCommand menuCommand) { CreateTracker(0, menuCommand); }
     [MenuItem("GameObject/PrismStudio VirtualTracker/1")] static void c1(MenuCommand menuCommand) { CreateTracker(1, menuCommand); }
@@ -62,14 +64,42 @@ public class VirtualTrackerCreator : EditorWindow
 
     static void CreateTracker(int index, GameObject parent)
     {
-        GameObject go = new GameObject("VirtualTracker " + index);
-        GameObjectUtility.SetParentAndAlign(go, parent);
-        VRCContactSender s = go.AddComponent<VRCContactSender>();
-        s.shapeType = VRC.Dynamics.ContactBase.ShapeType.Sphere;
-        s.radius = 0.01f;
-        s.collisionTags.Add("PrismStudio Tracker " + index);
-        Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
-        Selection.activeObject = go;
+        VRCAvatarDescriptor targetavatar = parent.GetComponentInParent<VRCAvatarDescriptor>();
+
+        if (targetavatar != null)
+        {
+            GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath("Assets/harunadev/PrismStudio/VirtualTracker/VirtualTracker (Manual Prefab).prefab", typeof(GameObject)));
+            go.name = "VirtualTracker " + index;
+
+            GameObjectUtility.SetParentAndAlign(go, targetavatar.gameObject);
+
+            go.transform.Find("x").GetComponent<PositionConstraint>().SetSource(0, new ConstraintSource()
+            {
+                sourceTransform = parent.transform,
+                weight = 0.001f
+            });
+            go.transform.Find("y").GetComponent<PositionConstraint>().SetSource(0, new ConstraintSource()
+            {
+                sourceTransform = parent.transform,
+                weight = 0.001f
+            });
+            go.transform.Find("z").GetComponent<PositionConstraint>().SetSource(0, new ConstraintSource()
+            {
+                sourceTransform = parent.transform,
+                weight = 0.001f
+            });
+            
+            go.transform.Find("x").GetComponent<VRCContactSender>().collisionTags.Add("ps_vt_" + index + "_x");
+            go.transform.Find("y").GetComponent<VRCContactSender>().collisionTags.Add("ps_vt_" + index + "_y");
+            go.transform.Find("z").GetComponent<VRCContactSender>().collisionTags.Add("ps_vt_" + index + "_z");
+
+            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+            Selection.activeObject = go;
+
+        } else
+        {
+            Debug.LogError("Selected object is not in VRCAvatarDescriptor!");
+        }
     }
 
 
